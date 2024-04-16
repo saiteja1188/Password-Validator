@@ -1,32 +1,39 @@
-// Write your code here
 import {useState} from 'react'
 
 import {
-  AppContainer,
-  Content,
+  MainContainer,
+  PasswordValidatorContainer,
   Heading,
-  Paragraph,
-  Input,
-  Error,
+  Text,
+  PasswordInput,
+  ErrorMessage,
 } from './styledComponents'
 
 const PasswordValidator = () => {
-  const [Valid, setValid] = useState('')
-  const onChangePassword = event => setValid(event.target.value)
+  const [password, setPassword] = useState('')
+  const showErrorMessage = password.length < 8
+
+  const onChangePassword = event => {
+    setPassword(event.target.value)
+  }
 
   return (
-    <AppContainer>
-      <Content>
+    <MainContainer>
+      <PasswordValidatorContainer>
         <Heading>Password Validator</Heading>
-        <Paragraph>Check how strong and secure is your password</Paragraph>
-        <Input type="password" onChange={onChangePassword} />
-        <Error>
-          {Valid.length >= 8 ? null : (
-            <p>your password must be at least 8 characters</p>
-          )}
-        </Error>
-      </Content>
-    </AppContainer>
+        <Text>Check how strong and secure is your password</Text>
+        <PasswordInput
+          type="password"
+          value={password}
+          onChange={onChangePassword}
+        />
+        {showErrorMessage && (
+          <ErrorMessage>
+            Your password must be at least 8 characters
+          </ErrorMessage>
+        )}
+      </PasswordValidatorContainer>
+    </MainContainer>
   )
 }
 
